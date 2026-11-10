@@ -1,14 +1,19 @@
 [
   {
-    "title": "Example: Cast iron skillet",
-    "url": "https://example.com/skillet",
-    "description": "10 inch, pre-seasoned. Any brand is fine.",
-    "price": "$30"
+    "title": "Hair Cutting Kit",
+    "url": "https://a.co/d/0g6r9ccr",
+    "description": "Black 7pc.",
+    "price": "$10"
   },
   {
-    "title": "Example: Wool hiking socks",
-    "url": "https://example.com/socks",
-    "description": "Size M, grey or navy.",
-    "price": "$20"
-  }
+    "title": "Foundation",
+    "url": "https://a.co/d/0bWM8l4b",
+    "description": "102 Fair Porcelain.",
+    "price": "$10"
+  },
+  {
+    "title": "Concealer",
+    "url": "https://a.co/d/0hRZCKzD",
+    "description": "01 Cool Ivory.",
+    "price": "$10"
 ]
