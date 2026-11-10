@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Example: Cast iron skillet",
+    "url": "https://example.com/skillet",
+    "description": "10 inch, pre-seasoned. Any brand is fine.",
+    "price": "$30"
+  },
+  {
+    "title": "Example: Wool hiking socks",
+    "url": "https://example.com/socks",
+    "description": "Size M, grey or navy.",
+    "price": "$20"
+  }
+]

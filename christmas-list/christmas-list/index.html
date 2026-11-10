@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7f3ea;
+    --ink: #1f2a24;
+    --muted: #5d6a62;
+    --line: #d9d2c0;
+    --berry: #9b2335;
+    --tag: #fffdf7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #17201b;
+      --ink: #efe9da;
+      --muted: #a2afa6;
+      --line: #2f3d35;
+      --berry: #e0697a;
+      --tag: #1f2b25;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1rem/1.55 "Work Sans", system-ui, sans-serif;
+  }
+  main { max-width: 42rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+  h1 {
+    font: 700 clamp(2.2rem, 7vw, 3.4rem)/1.05 "Fraunces", Georgia, serif;
+    margin: 0 0 .5rem;
+  }
+  .intro { color: var(--muted); margin: 0 0 2.5rem; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  li {
+    position: relative;
+    background: var(--tag);
+    border: 1px solid var(--line);
+    border-radius: 4px 4px 4px 22px;
+    padding: 1.1rem 1.25rem 1.1rem 2.6rem;
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 1rem; top: 1.35rem;
+    width: .7rem; height: .7rem;
+    border: 2px solid var(--berry);
+    border-radius: 50%;
+  }
+  .row { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+  h2 { font: 500 1.25rem/1.25 "Fraunces", Georgia, serif; margin: 0; }
+  h2 a { color: inherit; text-decoration-color: var(--berry); text-underline-offset: 3px; }
+  h2 a:hover { color: var(--berry); }
+  a:focus-visible { outline: 2px solid var(--berry); outline-offset: 3px; }
+  .price { color: var(--muted); white-space: nowrap; font-weight: 500; }
+  .desc { margin: .35rem 0 0; color: var(--muted); }
+  .empty { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Christmas list</h1>
+  <p class="intro" id="intro">Ideas, with links.</p>
+  <ul id="list"></ul>
+  <p class="empty" id="empty" hidden>Nothing here yet. Add items to items.json.</p>
+</main>
+<script>
+  const list = document.getElementById("list");
+  const empty = document.getElementById("empty");
+
+  function render(items) {
+    if (!items.length) { empty.hidden = false; return; }
+    for (const item of items) {
+      const li = document.createElement("li");
+
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const h2 = document.createElement("h2");
+      if (item.url) {
+        const a = document.createElement("a");
+        a.href = item.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = item.title;
+        h2.appendChild(a);
+      } else {
+        h2.textContent = item.title;
+      }
+      row.appendChild(h2);
+
+      if (item.price) {
+        const p = document.createElement("span");
+        p.className = "price";
+        p.textContent = item.price;
+        row.appendChild(p);
+      }
+      li.appendChild(row);
+
+      if (item.description) {
+        const d = document.createElement("p");
+        d.className = "desc";
+        d.textContent = item.description;
+        li.appendChild(d);
+      }
+      list.appendChild(li);
+    }
+  }
+
+  fetch("items.json")
+    .then(r => r.json())
+    .then(render)
+    .catch(() => {
+      empty.textContent = "Couldn't load items.json. Check that it is valid JSON.";
+      empty.hidden = false;
+    });
+</script>
+</body>
+</html>
